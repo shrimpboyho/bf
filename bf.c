@@ -2,8 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef enum
+{
+    false = ( 1 == 0 ),
+    true = ( ! false )
+} bool;
+
+
 int main ( int argc, char* argv[] ){
 
+	bool toCFlag = false;
+	int v = 0;
+	for(v; v < argc; v++){
+		if(argv[v] == "-c"){
+			toCFlag = true;
+		}
+	}
+	
 	FILE* s = fopen(argv[1],"r");
 	FILE* o = fopen("a.c","w");
 	fprintf(o, "#include <stdio.h>\n");
@@ -72,8 +87,10 @@ int main ( int argc, char* argv[] ){
 	strcat(command,"gcc a.c -o ");
 	strcat(command,argv[2]);
 	system(command);
-	
-	//remove("a.c");
+
+	if(toCFlag == false){
+		remove("a.c");
+	}
 
 	return 0;
 }

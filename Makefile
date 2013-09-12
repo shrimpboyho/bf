@@ -1,3 +1,3 @@
 all:
-	gcc bf.c -o build/bfc
-	build/bfc test/test.bf narc
+	gcc bf.c -o bfc
+	bfc test.bf narc
