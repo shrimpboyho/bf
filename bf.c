@@ -2,20 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef enum
-{
-    false = ( 1 == 0 ),
-    true = ( ! false )
-} bool;
-
-
 int main ( int argc, char* argv[] ){
 
-	bool toCFlag = false;
+	int toCFlag = 0;
 	int v = 0;
 	for(v; v < argc; v++){
 		if(argv[v] == "-c"){
-			toCFlag = true;
+			toCFlag = 1;
 		}
 	}
 	
@@ -88,7 +81,7 @@ int main ( int argc, char* argv[] ){
 	strcat(command,argv[2]);
 	system(command);
 
-	if(toCFlag == false){
+	if(toCFlag == 1){
 		remove("a.c");
 	}
 
