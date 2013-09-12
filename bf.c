@@ -6,13 +6,11 @@ int main ( int argc, char* argv[] ){
 
 	FILE* s = fopen(argv[1],"r");
 	FILE* o = fopen("a.c","w");
-	fprintf(o, "#include <stdio.h>\n"
-		   "#include <stdlib.h>\n"
-			
-		   "int main( void ){\n"
+	fprintf(o, "#include <stdio.h>\n");
+	fprintf(o, "#include <stdlib.h>\n");
+	fprintf(o, "int main( void ){\n");
+	fprintf(o, "\tchar code[] = \"");
 
-		    "\tprintf(\"hey\");"
-		   );
 
 	for(;;){
 
@@ -21,15 +19,18 @@ int main ( int argc, char* argv[] ){
 			break;
 		}
 		
+		if(p != '\n'){
+			fprintf(o,"%c",p);
+		}
+		
+		
 	}
 	
 	/* Close files */
 
 	fclose(s);
 
-	fprintf(o, "\treturn 0;\n"
-		   "}"
-		   );
+	fprintf(o, "\";\n\treturn 0;\n}");
 
 	fclose(o);
 	
@@ -39,7 +40,8 @@ int main ( int argc, char* argv[] ){
 	strcat(command,"gcc a.c -o ");
 	strcat(command,argv[2]);
 	system(command);
-	remove("a.c");
+	
+	//remove("a.c");
 
 	return 0;
 }
