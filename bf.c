@@ -8,9 +8,11 @@ int main ( int argc, char* argv[] ){
 	FILE* o = fopen("a.c","w");
 	fprintf(o, "#include <stdio.h>\n");
 	fprintf(o, "#include <stdlib.h>\n");
+	fprintf(o, "#include <string.h>\n");
 	fprintf(o, "int main( void ){\n");
-	fprintf(o, "\tchar code[] = \"");
-
+	fprintf(o, "\tchar* codep = \"");
+	
+	int i = 0;
 
 	for(;;){
 
@@ -21,6 +23,7 @@ int main ( int argc, char* argv[] ){
 		
 		if(p != '\n'){
 			fprintf(o,"%c",p);
+			i++;
 		}
 		
 		
@@ -30,7 +33,36 @@ int main ( int argc, char* argv[] ){
 
 	fclose(s);
 
-	fprintf(o, "\";\n\treturn 0;\n}");
+	fprintf(o, "\";\n\tchar* mem = (char*) malloc(sizeof(char) * 600);");
+	fprintf(o, "\n\tint i; // instruction pointer");
+	fprintf(o, "\n\tchar code[%d];", i);
+	fprintf(o, "\n\tstrcpy(code,codep);");
+	fprintf(o, "\n\tint ptr = 0; // memory pointer");
+	fprintf(o, "\n\tfor(i = 0; i < %d; i++){", i);
+	fprintf(o, "\n\t\tif(code[i] == '>') ptr++;");
+	fprintf(o, "\n\t\tif(code[i] == '<') ptr--;");
+	fprintf(o, "\n\t\tif(code[i] == '+') *(mem + ptr) = *(mem + ptr) + 1;");
+	fprintf(o, "\n\t\tif(code[i] == '-') *(mem + ptr) = *(mem + ptr) - 1;");
+	fprintf(o, "\n\t\tif(code[i] == '.') putchar(*(mem + ptr));");
+	fprintf(o, "\n\t\tif(code[i] == ',') *(mem + ptr) = getchar();");
+	fprintf(o, "\n\t\tif(code[i] == '['){"); 
+	fprintf(o, "\n\t\t\tif(*(mem + ptr) == 0){");
+	fprintf(o, "\n\t\t\t\twhile((code[i] != ']')){");
+	fprintf(o, "\n\t\t\t\t\ti++;");
+	fprintf(o, "\n\t\t\t\t}");
+	fprintf(o, "\n\t\t\t\ti++;");
+	fprintf(o, "\n\t\t\t}"); 
+	fprintf(o, "\n\t\t}");
+	fprintf(o, "\n\t\tif(code[i] == ']'){"); 
+	fprintf(o, "\n\t\t\tif(*(mem + ptr) != 0){");
+	fprintf(o, "\n\t\t\t\twhile((code[i] != '[')){");
+	fprintf(o, "\n\t\t\t\t\ti--;");
+	fprintf(o, "\n\t\t\t\t}");
+	fprintf(o, "\n\t\t\t\ti--;");
+	fprintf(o, "\n\t\t\t}"); 
+	fprintf(o, "\n\t\t}");	
+	fprintf(o, "\n\t}");
+	fprintf(o, "\n\treturn 0;\n}");
 
 	fclose(o);
 	
