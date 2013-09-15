@@ -29,7 +29,7 @@ int main ( int argc, char* argv[] ){
 			break;
 		}
 		
-		if(p != '\n'){
+		if(p == '<'|| p == '>'|| p == '.'|| p == ','|| p == '['|| p == ']'|| p == '+'|| p == '-'){
 			fprintf(o,"%c",p);
 			i++;
 		}
