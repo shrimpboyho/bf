@@ -1,6 +1,5 @@
 [bf]() - A Collection of Brainf*ck Implementations
 ==============================================
-
 [![Build Status](https://drone.io/github.com/shrimpboyho/bf/status.png)](https://drone.io/github.com/shrimpboyho/bf/latest)
 ##Brainf*ck compiler
 
