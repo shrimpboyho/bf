@@ -1,6 +1,7 @@
-bf - A Collection of Brainf*ck Implementations
+[bf]() - A Collection of Brainf*ck Implementations
 ==============================================
 
+[![Build Status](https://drone.io/github.com/shrimpboyho/bf/status.png)](https://drone.io/github.com/shrimpboyho/bf/latest)
 ##Brainf*ck compiler
 
 ```bf.c``` contains the source code for the ```bfc``` compiler. It is written in C, and is compiled using GCC. You can grab a copy of the ```bfc``` executable and begin using it right away, but I'm sure you want to make it first.
